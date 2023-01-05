@@ -1,10 +1,10 @@
-import { RiAddFill } from 'react-icons/ri';
+import { RiAddFill, RiLoader3Fill } from 'react-icons/ri';
 
 import Navbar from './components/Navbar';
-import emptyStateVector from './assets/activity-empty-state.png';
 import { useQuery } from '@tanstack/react-query';
 import { getAllActivity } from './api';
 import ActivityItem from './components/ActivityItem';
+import EmptyPlaceholder from './components/EmptyPlaceholder';
 
 const App = () => {
   const activityGroups = useQuery({
@@ -36,15 +36,12 @@ const App = () => {
               <ActivityItem group={group} key={group.id} />
             ))}
           </section>
-        ) : (
-          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-8 w-full flex flex-col items-center'>
-            <img
-              src={emptyStateVector}
-              data-cy='activity-empty-state'
-              className='w-4/5'
-            />
-            <h1 className='text-black-2 font-bold'>Buat activity pertamamu</h1>
+        ) : activityGroups.isLoading ? (
+          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+            <RiLoader3Fill className='animate-spin text-4xl' />
           </div>
+        ) : (
+          <EmptyPlaceholder />
         )}
       </main>
     </>
