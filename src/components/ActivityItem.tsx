@@ -1,7 +1,20 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { Activity } from '../api';
+import { Activity, deleteActivity } from '../api';
 
 const ActivityItem = ({ group }: { group: Activity }) => {
+  const queryClient = useQueryClient();
+  const { mutateAsync } = useMutation({
+    mutationFn: deleteActivity,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['activity-groups'] });
+    },
+  });
+
+  const onDeleteClick = () => {
+    mutateAsync(group.id);
+  };
+
   return (
     <div
       data-cy='activity-item'
@@ -19,7 +32,7 @@ const ActivityItem = ({ group }: { group: Activity }) => {
             year: 'numeric',
           })}
         </span>
-        <button data-cy='activity-item-delete-button'>
+        <button data-cy='activity-item-delete-button' onClick={onDeleteClick}>
           <RiDeleteBinLine className='hover:text-danger' />
         </button>
       </div>

@@ -41,3 +41,11 @@ export const createActivity = async () => {
 
   return response.data.data;
 };
+
+export const deleteActivity = async (id: Activity['id']) => {
+  const response = await axios.delete(`${BASE_URL}/activity-groups/${id}`);
+
+  if (response.status !== 200) {
+    throw new Error(`Failed deleting activity group: ${response.statusText}`);
+  }
+};
