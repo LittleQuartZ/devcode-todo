@@ -1,16 +1,17 @@
-import { RiAddFill, RiDeleteBinLine } from 'react-icons/ri';
+import { RiAddFill } from 'react-icons/ri';
 
 import Navbar from './components/Navbar';
 import emptyStateVector from './assets/activity-empty-state.png';
 import { useQuery } from '@tanstack/react-query';
 import { getAllActivity } from './api';
+import ActivityItem from './components/ActivityItem';
 
 const App = () => {
   const activityGroups = useQuery({
     queryKey: ['activity-groups'],
     queryFn: getAllActivity,
-    onError: (_) => {
-      alert('Failed fetching activity groups');
+    onError: (err) => {
+      alert((err as Error).message);
     },
   });
 
@@ -31,29 +32,8 @@ const App = () => {
         </section>
         {activityGroups.data ? (
           <section className='grid grid-cols-2 gap-5 mt-8 auto-rows-[140px] pb-8'>
-            {activityGroups.data?.map((group) => (
-              <div
-                data-cy='activity-item'
-                key={group.id}
-                className='shadow-lg p-4 rounded-md border-2 border-transparent hover:border-primary flex flex-col'>
-                <p
-                  data-cy='activity-item-title'
-                  className='flex-1 break-words font-bold text-sm'>
-                  {group.title}
-                </p>
-                <div className='text-black-3 flex items-center justify-between'>
-                  <span data-cy='activity-item-title' className='text-sm'>
-                    {new Date(group.created_at).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </span>
-                  <button data-cy='activity-item-delete-button'>
-                    <RiDeleteBinLine className='hover:text-danger' />
-                  </button>
-                </div>
-              </div>
+            {activityGroups.data.map((group) => (
+              <ActivityItem group={group} key={group.id} />
             ))}
           </section>
         ) : (

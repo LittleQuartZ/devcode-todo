@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://todo.api.devcode.gethired.id';
 
-type Activity = {
+export type Activity = {
   created_at: string;
   id: number;
   title: string;
