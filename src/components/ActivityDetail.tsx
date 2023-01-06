@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { RiArrowUpDownLine, RiEditLine } from 'react-icons/ri';
+import { RiAddLine, RiArrowUpDownLine, RiEditLine } from 'react-icons/ri';
 import { useMatch } from 'react-router-dom';
-import { getActivityDetail } from '../api';
-import AddDialog from './AddDialog';
+import { createTodo, getActivityDetail } from '../api';
+import TodoDialog from './AddDialog';
 import TodoItem from './TodoItem';
 
 const ActivityDetail = () => {
@@ -22,7 +22,11 @@ const ActivityDetail = () => {
         <button className='border-black-3 text-black-3 border-2 p-2 rounded-full'>
           <RiArrowUpDownLine className='text-xl' />
         </button>
-        <AddDialog />
+        <TodoDialog title='Tambah List Item' mutationFn={createTodo}>
+          <button className='flex items-center font-bold bg-primary rounded-full py-2 px-4 text-white gap-2'>
+            <RiAddLine className='text-xl' /> Tambah
+          </button>
+        </TodoDialog>
       </div>
       {activityDetail.data?.todo_items.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />

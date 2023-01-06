@@ -29,7 +29,7 @@ export type TodoPriority = typeof TodoPriorities[number];
 export type Todo = {
   activity_group_id: Activity['id'];
   id: number;
-  is_active: 1 | 0;
+  is_active: 1 | 0 | true | false;
   priority: TodoPriority;
   title: string;
 };
@@ -81,6 +81,56 @@ export const getActivityDetail = async (id: Activity['id'] | string) => {
     throw new Error(
       `Failed fetching activity detail ${id}: ${response.statusText}`
     );
+  }
+
+  return response.data;
+};
+
+export const createTodo = async (
+  id: Todo['id'] | string,
+  todo: {
+    title: Todo['title'];
+    priority: Todo['priority'];
+  }
+) => {
+  const response = await axios.post<Todo>(`${BASE_URL}/todo-items`, {
+    activity_group_id: id,
+    title: todo.title,
+    priority: todo.priority,
+  });
+
+  if (response.status !== 201) {
+    throw new Error(`Failed creating new todo: ${response.statusText}`);
+  }
+
+  return response.data;
+};
+
+export const deleteTodo = async (id: Todo['id']) => {
+  const response = await axios.delete(`${BASE_URL}/todo-items/${id}`);
+
+  if (response.status !== 200) {
+    throw new Error(`Failed deleting ${id} todo: ${response.statusText}`);
+  }
+};
+
+export type TodoUpdate = Partial<{
+  title: Todo['title'];
+  priority: Todo['priority'];
+  is_active: Todo['is_active'];
+}>;
+
+export const updateTodo = async (
+  id: Todo['id'] | string,
+  update: TodoUpdate
+) => {
+  const response = await axios.patch<Todo>(
+    `${BASE_URL}/todo-items/${id}`,
+    update
+  );
+
+  if (response.status !== 200) {
+    throw new Error(`Failed deleting ${id} todo: ${response.statusText}`);
   }
 
   return response.data;
