@@ -12,12 +12,14 @@ specifiers:
   '@vitejs/plugin-react': ^3.0.0
   autoprefixer: ^10.4.13
   axios: ^1.2.2
+  csstype: ^3.0.10
   eslint: ^8.31.0
   eslint-plugin-react: ^7.31.11
   jotai: ^1.12.1
   postcss: ^8.4.20
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-hot-toast: ^2.4.0
   react-icons: ^4.7.1
   react-router-dom: ^6.6.1
   tailwindcss: ^3.2.4
@@ -30,9 +32,11 @@ dependencies:
   '@radix-ui/react-dropdown-menu': 2.0.1_ib3m5ricvtkl2cll7qpr2f6lvq
   '@tanstack/react-query': 4.20.9_biqbaboplfbrettd7655fr4n2y
   axios: 1.2.2
+  csstype: 3.1.1
   jotai: 1.12.1_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hot-toast: 2.4.0_owo25xnefcwdq3zjgtohz6dbju
   react-icons: 4.7.1_react@18.2.0
   react-router-dom: 6.6.1_biqbaboplfbrettd7655fr4n2y
 
@@ -2002,6 +2006,14 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /goober/2.1.11_csstype@3.1.1:
+    resolution: {integrity: sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dependencies:
+      csstype: 3.1.1
+    dev: false
+
   /gopd/1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
@@ -2677,6 +2689,20 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hot-toast/2.4.0_owo25xnefcwdq3zjgtohz6dbju:
+    resolution: {integrity: sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      goober: 2.1.11_csstype@3.1.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    transitivePeerDependencies:
+      - csstype
     dev: false
 
   /react-icons/4.7.1_react@18.2.0:

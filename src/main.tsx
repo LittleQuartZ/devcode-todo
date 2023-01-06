@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ActivityList from './components/ActivityList';
 import ActivityDetail from './components/ActivityDetail';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
+        <Toaster position='bottom-center' />
         <Navbar />
         <ActivityList />
       </>
@@ -23,6 +25,7 @@ const router = createBrowserRouter([
     path: '/detail/:id',
     element: (
       <>
+        <Toaster position='bottom-center' />
         <Navbar />
         <ActivityDetail />
       </>

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RiDeleteBinLine } from 'react-icons/ri';
+import { toast } from 'react-hot-toast';
+import { RiDeleteBinLine, RiInformationLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { Activity, deleteActivity } from '../api';
 import AlertDialog from './AlertDialog';
@@ -13,8 +14,16 @@ const ActivityItem = ({ group }: { group: Activity }) => {
     },
   });
 
-  const onDeleteClick = () => {
-    mutateAsync(group.id);
+  const onDeleteClick = async () => {
+    await mutateAsync(group.id);
+    toast((t) => (
+      <span
+        onClick={() => toast.dismiss(t.id)}
+        className='flex items-center text-base gap-4'>
+        <RiInformationLine className='text-2xl text-success' /> Activity
+        berhasil dihilangkan
+      </span>
+    ));
   };
 
   return (

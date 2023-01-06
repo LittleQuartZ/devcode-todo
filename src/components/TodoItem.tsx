@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RiDeleteBinLine, RiEditLine } from 'react-icons/ri';
+import { toast } from 'react-hot-toast';
+import { RiDeleteBinLine, RiEditLine, RiInformationLine } from 'react-icons/ri';
 import { deleteTodo, Todo, TodoUpdate, updateTodo } from '../api';
 import AlertDialog from './AlertDialog';
 import TodoDialog from './TodoDialog';
@@ -45,8 +46,16 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
       },
     });
 
-  const onDeleteClick = () => {
-    mutateAsync(todo.id);
+  const onDeleteClick = async () => {
+    await mutateAsync(todo.id);
+    toast((t) => (
+      <span
+        onClick={() => toast.dismiss(t.id)}
+        className='flex items-center text-base gap-4'>
+        <RiInformationLine className='text-2xl text-success' /> Activity
+        berhasil dihilangkan
+      </span>
+    ));
   };
 
   return (
