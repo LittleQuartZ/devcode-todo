@@ -7,15 +7,17 @@ const Navbar = () => {
   return (
     <nav
       data-cy='header-background'
-      className='bg-primary text-white font-bold p-5 shadow-md flex items-center gap-4'>
-      {Boolean(match) && (
-        <Link data-cy='todo-back-button' to='/'>
-          <RiArrowLeftLine className='text-2xl' />
-        </Link>
-      )}
-      <h1 data-cy='header-title' className='text-lg'>
-        TO DO LIST APP
-      </h1>
+      className='bg-primary text-white font-bold p-5 shadow-md'>
+      <div className='container mx-auto flex items-center gap-4'>
+        {Boolean(match) && (
+          <Link data-cy='todo-back-button' to='/'>
+            <RiArrowLeftLine className='text-2xl' />
+          </Link>
+        )}
+        <h1 data-cy='header-title' className='text-lg'>
+          TO DO LIST APP
+        </h1>
+      </div>
     </nav>
   );
 };

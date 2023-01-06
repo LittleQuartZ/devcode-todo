@@ -63,7 +63,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   };
 
   return (
-    <div className='flex items-center gap-4 rounded-md shadow-md border-2 border-transparent hover:border-primary px-4 py-2'>
+    <div className='flex items-center bg-white gap-4 rounded-md shadow-md border-2 border-transparent hover:border-primary px-4 py-2'>
       <input
         data-cy='todo-item-checkbox'
         disabled={updateIsLoading}

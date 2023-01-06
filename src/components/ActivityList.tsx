@@ -28,7 +28,7 @@ const ActivityList = () => {
   };
 
   return (
-    <main className='pt-8 px-8'>
+    <main className='pt-8 px-8 container mx-auto'>
       <section className='flex items-center justify-between'>
         <h1 data-cy='activity-title' className='font-bold'>
           Activity
@@ -49,7 +49,7 @@ const ActivityList = () => {
         </button>
       </section>
       {activityGroups.data && activityGroups.data.length > 0 ? (
-        <section className='grid grid-cols-2 gap-5 mt-8 auto-rows-[140px] pb-8'>
+        <section className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8 auto-rows-[140px] pb-8'>
           {activityGroups.data.map((group) => (
             <ActivityItem group={group} key={group.id} />
           ))}

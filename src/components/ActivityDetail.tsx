@@ -41,7 +41,7 @@ const ActivityDetail = () => {
   const [order] = useAtom(orderAtom);
 
   return (
-    <main className='p-8 flex flex-col gap-4'>
+    <main className='p-8 flex flex-col gap-4 container mx-auto'>
       <div className='flex items-center justify-between'>
         {editing ? (
           <input
@@ -68,7 +68,7 @@ const ActivityDetail = () => {
         <SortMenu>
           <button
             data-cy='todo-sort-button'
-            className='border-black-3 text-black-3 border-2 p-2 rounded-full'>
+            className='bg-white border-black-3 text-black-3 border-2 p-2 rounded-full'>
             <RiArrowUpDownLine className='text-xl' />
           </button>
         </SortMenu>

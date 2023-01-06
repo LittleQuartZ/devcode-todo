@@ -35,7 +35,7 @@ const ActivityItem = ({ group }: { group: Activity }) => {
   return (
     <div
       data-cy='activity-item'
-      className='shadow-lg p-4 rounded-md border-2 border-transparent hover:border-primary flex flex-col'>
+      className='bg-white shadow-lg p-4 rounded-md border-2 border-transparent hover:border-primary flex flex-col'>
       <Link
         to={`/detail/${group.id}`}
         data-cy='activity-item-title'

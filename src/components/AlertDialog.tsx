@@ -16,7 +16,7 @@ const AlertDialog = ({ children, title, action }: Props) => {
         <Alert.Overlay className='bg-gray-300 opacity-50 w-screen h-screen fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
         <Alert.Content
           data-cy='modal-add'
-          className='p-5 min-w-[80%] bg-white rounded-lg shadow-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+          className='p-5 w-[60%] md:max-w-[400px] bg-white rounded-lg shadow-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
           <Alert.Title className='flex items-center gap-4 flex-col font-bold'>
             <RiAlertLine className='text-7xl text-danger' />
             <p data-cy='modal-delete-title' className='text-center'>
