@@ -86,6 +86,24 @@ export const getActivityDetail = async (id: Activity['id'] | string) => {
   return response.data;
 };
 
+export const updateActivityDetail = async (
+  id: Activity['id'] | string,
+  title: Activity['title']
+) => {
+  const response = await axios.patch<ActivityDetail>(
+    `${BASE_URL}/activity-groups/${id}`,
+    { title }
+  );
+
+  if (response.status !== 200) {
+    throw new Error(
+      `Failed updating activity detail ${id}: ${response.statusText}`
+    );
+  }
+
+  return response.data;
+};
+
 export const createTodo = async (
   id: Todo['id'] | string,
   todo: {
