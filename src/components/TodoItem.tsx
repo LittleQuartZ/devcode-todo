@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiDeleteBinLine, RiEditLine } from 'react-icons/ri';
 import { deleteTodo, Todo, TodoUpdate, updateTodo } from '../api';
-import TodoDialog from './AddDialog';
+import TodoDialog from './TodoDialog';
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   let priorityClass;
