@@ -16,6 +16,26 @@ type Response<T> = {
   data: T;
 };
 
+export const TodoPriorities = [
+  'very-high',
+  'high',
+  'normal',
+  'low',
+  'very-low',
+] as const;
+
+export type Todo = {
+  activity_group_id: Activity['id'];
+  id: number;
+  is_active: 1 | 0;
+  priority: typeof TodoPriorities[number];
+  title: string;
+};
+
+export type ActivityDetail = Activity & {
+  todo_items: Todo[];
+};
+
 export const getAllActivity = async () => {
   const response = await axios.get<Response<Activity[]>>(
     `${BASE_URL}/activity-groups?email=${EMAIL}`
@@ -48,4 +68,18 @@ export const deleteActivity = async (id: Activity['id']) => {
   if (response.status !== 200) {
     throw new Error(`Failed deleting activity group: ${response.statusText}`);
   }
+};
+
+export const getActivityDetail = async (id: Activity['id'] | string) => {
+  const response = await axios.get<ActivityDetail>(
+    `${BASE_URL}/activity-groups/${id}`
+  );
+
+  if (response.status !== 200) {
+    throw new Error(
+      `Failed fetching activity detail ${id}: ${response.statusText}`
+    );
+  }
+
+  return response.data;
 };

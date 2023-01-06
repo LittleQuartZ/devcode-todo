@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 import { Activity, deleteActivity } from '../api';
 
 const ActivityItem = ({ group }: { group: Activity }) => {
@@ -19,11 +20,12 @@ const ActivityItem = ({ group }: { group: Activity }) => {
     <div
       data-cy='activity-item'
       className='shadow-lg p-4 rounded-md border-2 border-transparent hover:border-primary flex flex-col'>
-      <p
+      <Link
+        to={`/detail/${group.id}`}
         data-cy='activity-item-title'
         className='flex-1 break-words font-bold text-sm'>
         {group.title}
-      </p>
+      </Link>
       <div className='text-black-3 flex items-center justify-between'>
         <span data-cy='activity-item-title' className='text-sm'>
           {new Date(group.created_at).toLocaleDateString('id-ID', {
