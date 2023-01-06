@@ -1,6 +1,7 @@
 import * as Alert from '@radix-ui/react-alert-dialog';
 import { RiAlertLine } from 'react-icons/ri';
-import { Activity, Todo } from '../api';
+
+import type { Activity, Todo } from '../api';
 
 type Props = {
   children: React.ReactNode;

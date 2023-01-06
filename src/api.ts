@@ -3,12 +3,6 @@ import axios from 'axios';
 const BASE_URL = 'https://todo.api.devcode.gethired.id';
 const EMAIL = 'syahdanhafizzz@gmail.com';
 
-export type Activity = {
-  created_at: string;
-  id: number;
-  title: string;
-};
-
 type Response<T> = {
   limit: number;
   skip: number;
@@ -24,6 +18,16 @@ export const priorities = {
   'very-low': 'Very Low',
 } as const;
 
+export type Activity = {
+  created_at: string;
+  id: number;
+  title: string;
+};
+
+export type ActivityDetail = Activity & {
+  todo_items: Todo[];
+};
+
 export type TodoPriority = keyof typeof priorities;
 
 export type Todo = {
@@ -34,9 +38,11 @@ export type Todo = {
   title: string;
 };
 
-export type ActivityDetail = Activity & {
-  todo_items: Todo[];
-};
+export type TodoUpdate = Partial<{
+  title: Todo['title'];
+  priority: Todo['priority'];
+  is_active: Todo['is_active'];
+}>;
 
 export const getAllActivity = async () => {
   const response = await axios.get<Response<Activity[]>>(
@@ -131,12 +137,6 @@ export const deleteTodo = async (id: Todo['id']) => {
     throw new Error(`Failed deleting ${id} todo: ${response.statusText}`);
   }
 };
-
-export type TodoUpdate = Partial<{
-  title: Todo['title'];
-  priority: Todo['priority'];
-  is_active: Todo['is_active'];
-}>;
 
 export const updateTodo = async (
   id: Todo['id'] | string,

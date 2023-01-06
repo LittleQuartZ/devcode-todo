@@ -1,11 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { RiDeleteBinLine, RiEditLine, RiInformationLine } from 'react-icons/ri';
-import { deleteTodo, Todo, TodoUpdate, updateTodo } from '../api';
+
+import { deleteTodo, type Todo, type TodoUpdate, updateTodo } from '../api';
 import AlertDialog from './AlertDialog';
 import TodoDialog from './TodoDialog';
 
-const TodoItem = ({ todo }: { todo: Todo }) => {
+type Props = { todo: Todo };
+
+const TodoItem = ({ todo }: Props) => {
   let priorityClass;
   switch (todo.priority) {
     case 'very-high':
@@ -26,15 +29,16 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   }
 
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation({
-    mutationFn: deleteTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries([
-        'activity-detail',
-        `${todo.activity_group_id}`,
-      ]);
-    },
-  });
+  const { mutateAsync: deleteMutateAsync, isLoading: deleteIsLoading } =
+    useMutation({
+      mutationFn: deleteTodo,
+      onSuccess: () => {
+        queryClient.invalidateQueries([
+          'activity-detail',
+          `${todo.activity_group_id}`,
+        ]);
+      },
+    });
   const { mutateAsync: updateMutateAsync, isLoading: updateIsLoading } =
     useMutation({
       mutationFn: (update: TodoUpdate) => updateTodo(todo.id, update),
@@ -47,7 +51,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     });
 
   const onDeleteClick = async () => {
-    await mutateAsync(todo.id);
+    await deleteMutateAsync(todo.id);
     toast((t) => (
       <div
         className='flex items-center text-base gap-4'
@@ -62,6 +66,10 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     ));
   };
 
+  const onActiveCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateMutateAsync({ is_active: !e.target.checked });
+  };
+
   return (
     <div className='flex items-center bg-white gap-4 rounded-md shadow-md border-2 border-transparent hover:border-primary px-4 py-2'>
       <input
@@ -69,9 +77,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         disabled={updateIsLoading}
         type='checkbox'
         checked={todo.is_active ? false : true}
-        onChange={(e) => {
-          updateMutateAsync({ is_active: !e.target.checked });
-        }}
+        onChange={onActiveCheck}
       />
       <span
         data-cy='todo-item-priority-indicator'
@@ -98,7 +104,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         <button
           className='ml-auto'
           data-cy='todo-item-delete-button'
-          disabled={isLoading}>
+          disabled={deleteIsLoading}>
           <RiDeleteBinLine />
         </button>
       </AlertDialog>

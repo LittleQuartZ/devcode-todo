@@ -1,37 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ActivityList from './components/ActivityList';
 import ActivityDetail from './components/ActivityDetail';
-import { Toaster } from 'react-hot-toast';
 
-const queryClient = new QueryClient();
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <Toaster position='bottom-center' />
+    <Navbar />
+    {children}
+  </>
+);
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <>
-        <Toaster position='bottom-center' />
-        <Navbar />
+      <RootLayout>
         <ActivityList />
-      </>
+      </RootLayout>
     ),
   },
   {
     path: '/detail/:id',
     element: (
-      <>
-        <Toaster position='bottom-center' />
-        <Navbar />
+      <RootLayout>
         <ActivityDetail />
-      </>
+      </RootLayout>
     ),
   },
 ]);
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

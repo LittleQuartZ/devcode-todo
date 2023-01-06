@@ -7,7 +7,8 @@ import {
 } from 'react-icons/ri';
 import { FaSortAlphaUp, FaSortAlphaDown } from 'react-icons/fa';
 import { useAtom } from 'jotai';
-import { orderAtom, orders, OrderType } from '../states/todoOrder';
+
+import { orderAtom, orders, type OrderType } from '../states/todoOrder';
 
 type Props = {
   children: React.ReactNode;
@@ -28,7 +29,7 @@ const SortMenu = ({ children }: Props) => {
             let Icon: React.FC<{ className: string }>;
             let dataCy: string;
             switch (k as OrderType) {
-              case 'newest':
+              case 'latest':
                 Icon = RiSortDesc;
                 dataCy = 'latest';
                 break;

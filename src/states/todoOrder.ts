@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 
 export const orders = {
-  newest: 'Terbaru',
+  latest: 'Terbaru',
   oldest: 'Terlama',
   az: 'A-Z',
   za: 'Z-A',
@@ -10,4 +10,4 @@ export const orders = {
 
 export type OrderType = keyof typeof orders;
 
-export const orderAtom = atom<OrderType>('newest');
+export const orderAtom = atom<OrderType>('latest');

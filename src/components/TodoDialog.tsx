@@ -3,7 +3,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { RiCloseLine, RiLoader3Line } from 'react-icons/ri';
 import { useMatch } from 'react-router-dom';
-import { createTodo, priorities, Todo, TodoPriority, updateTodo } from '../api';
+
+import {
+  createTodo,
+  priorities,
+  type Todo,
+  type TodoPriority,
+  updateTodo,
+} from '../api';
 
 const TodoDialog = ({
   title,
@@ -18,6 +25,8 @@ const TodoDialog = ({
   mutationFn: typeof createTodo | typeof updateTodo;
   todoId?: Todo['id'];
 }) => {
+  const match = useMatch('/detail/:id');
+
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const [priority, setPriority] = useState<TodoPriority>('very-high');
@@ -30,7 +39,6 @@ const TodoDialog = ({
   }, [defaultValue]);
 
   const queryClient = useQueryClient();
-  const match = useMatch('/detail/:id');
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: () =>
       mutationFn(todoId || (match?.params.id as string), {
@@ -44,6 +52,11 @@ const TodoDialog = ({
       setPriority('very-high');
     },
   });
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutateAsync();
+  };
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -63,12 +76,7 @@ const TodoDialog = ({
               <RiCloseLine />
             </Dialog.Close>
           </Dialog.Title>
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              mutateAsync();
-            }}
-            className='flex flex-col gap-4'>
+          <form onSubmit={onSubmit} className='flex flex-col gap-4'>
             <label
               data-cy='modal-add-name-title'
               className='uppercase text-sm flex flex-col gap-2'>
@@ -89,10 +97,7 @@ const TodoDialog = ({
               <select
                 data-cy='modal-add-priority-dropdown'
                 className='block appearance-none bg-white border-2 border-grey-100 hover:border-gray-500 px-4 py-2 pr-8 rounded focus:outline-none focus:shadow-outline'
-                onChange={(e) => {
-                  setPriority(e.target.value as TodoPriority);
-                  console.log(e.target.value);
-                }}
+                onChange={(e) => setPriority(e.target.value as TodoPriority)}
                 value={priority}>
                 {Object.entries(priorities).map(([k, v], index) => (
                   <option

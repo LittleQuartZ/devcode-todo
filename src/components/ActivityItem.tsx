@@ -1,11 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-hot-toast';
+import { type Toast, toast } from 'react-hot-toast';
 import { RiDeleteBinLine, RiInformationLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import { Activity, deleteActivity } from '../api';
+
+import { type Activity, deleteActivity } from '../api';
 import AlertDialog from './AlertDialog';
 
-const ActivityItem = ({ group }: { group: Activity }) => {
+type Props = {
+  group: Activity;
+};
+
+const ActivityItem = ({ group }: Props) => {
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: deleteActivity,
@@ -14,22 +19,32 @@ const ActivityItem = ({ group }: { group: Activity }) => {
     },
   });
 
+  const toastElement = (t: Toast) => (
+    <div
+      className='flex items-center text-base gap-4'
+      data-cy='modal-information'
+      onClick={() => toast.dismiss(t.id)}>
+      <RiInformationLine
+        data-cy='modal-information-icon'
+        className='text-2xl text-success'
+      />
+      <span data-cy='modal-information-title'>
+        Activity berhasil dihilangkan
+      </span>
+    </div>
+  );
+
   const onDeleteClick = async () => {
     await mutateAsync(group.id);
-    toast((t) => (
-      <div
-        className='flex items-center text-base gap-4'
-        data-cy='modal-information'
-        onClick={() => toast.dismiss(t.id)}>
-        <RiInformationLine
-          data-cy='modal-information-icon'
-          className='text-2xl text-success'
-        />
-        <span data-cy='modal-information-title'>
-          Activity berhasil dihilangkan
-        </span>
-      </div>
-    ));
+    toast(toastElement);
+  };
+
+  const prettyDate = (date: Date) => {
+    return date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
   };
 
   return (
@@ -44,11 +59,7 @@ const ActivityItem = ({ group }: { group: Activity }) => {
       </Link>
       <div className='text-black-3 flex items-center justify-between'>
         <span data-cy='activity-item-date' className='text-sm'>
-          {new Date(group.created_at).toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
+          {prettyDate(new Date(group.created_at))}
         </span>
         <AlertDialog
           title={`Apakah anda yakin menghapus activity "${group.title}"?`}
