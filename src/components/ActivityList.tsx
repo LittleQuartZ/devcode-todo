@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createActivity, getAllActivity } from '../api';
 import ActivityItem from './ActivityItem';
 import EmptyPlaceholder from './EmptyPlaceholder';
+import activityEmptyState from '../assets/activity-empty-state.png';
 
 const ActivityList = () => {
   const queryClient = useQueryClient();
@@ -47,7 +48,7 @@ const ActivityList = () => {
           )}
         </button>
       </section>
-      {activityGroups.data ? (
+      {activityGroups.data && activityGroups.data.length > 0 ? (
         <section className='grid grid-cols-2 gap-5 mt-8 auto-rows-[140px] pb-8'>
           {activityGroups.data.map((group) => (
             <ActivityItem group={group} key={group.id} />
@@ -58,7 +59,11 @@ const ActivityList = () => {
           <RiLoader3Fill className='animate-spin text-4xl' />
         </div>
       ) : (
-        <EmptyPlaceholder />
+        <EmptyPlaceholder
+          dataCy='activity-empty-state'
+          image={activityEmptyState}
+          text='Buat activity pertamamu'
+        />
       )}
     </main>
   );

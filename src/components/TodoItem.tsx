@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiDeleteBinLine, RiEditLine } from 'react-icons/ri';
 import { deleteTodo, Todo, TodoUpdate, updateTodo } from '../api';
+import AlertDialog from './AlertDialog';
 import TodoDialog from './TodoDialog';
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
@@ -51,6 +52,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   return (
     <div className='flex items-center gap-4 rounded-md shadow-md border-2 border-transparent hover:border-primary px-4 py-2'>
       <input
+        data-cy='todo-item-checkbox'
         disabled={updateIsLoading}
         type='checkbox'
         checked={todo.is_active ? false : true}
@@ -59,22 +61,34 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         }}
       />
       <span
+        data-cy='todo-item-priority-indicator'
         aria-label={`priority ${todo.priority}`}
         className={`w-3 h-3 inline-block rounded-full ${priorityClass}`}
       />
-      <p className={`${!todo.is_active && 'line-through'}`}>{todo.title}</p>
+      <p
+        data-cy='todo-item-title'
+        className={`${!todo.is_active && 'line-through'}`}>
+        {todo.title}
+      </p>
       <TodoDialog
         defaultValue={{ title: todo.title, priority: todo.priority }}
         title='Update List Item'
         mutationFn={updateTodo}
         todoId={todo.id}>
-        <button>
+        <button data-cy='todo-item-edit-button'>
           <RiEditLine />
         </button>
       </TodoDialog>
-      <button className='ml-auto' onClick={onDeleteClick} disabled={isLoading}>
-        <RiDeleteBinLine />
-      </button>
+      <AlertDialog
+        title={`Apakah anda yakin menghapus List Item "${todo.title}"?`}
+        action={onDeleteClick}>
+        <button
+          className='ml-auto'
+          data-cy='todo-item-delete-button'
+          disabled={isLoading}>
+          <RiDeleteBinLine />
+        </button>
+      </AlertDialog>
     </div>
   );
 };

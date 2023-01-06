@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { Activity, deleteActivity } from '../api';
+import AlertDialog from './AlertDialog';
 
 const ActivityItem = ({ group }: { group: Activity }) => {
   const queryClient = useQueryClient();
@@ -27,16 +28,20 @@ const ActivityItem = ({ group }: { group: Activity }) => {
         {group.title}
       </Link>
       <div className='text-black-3 flex items-center justify-between'>
-        <span data-cy='activity-item-title' className='text-sm'>
+        <span data-cy='activity-item-date' className='text-sm'>
           {new Date(group.created_at).toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
           })}
         </span>
-        <button data-cy='activity-item-delete-button' onClick={onDeleteClick}>
-          <RiDeleteBinLine className='hover:text-danger' />
-        </button>
+        <AlertDialog
+          title={`Apakah anda yakin menghapus activity "${group.title}"?`}
+          action={onDeleteClick}>
+          <button data-cy='activity-item-delete-button'>
+            <RiDeleteBinLine className='hover:text-danger' />
+          </button>
+        </AlertDialog>
       </div>
     </div>
   );

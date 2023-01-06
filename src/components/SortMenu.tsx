@@ -26,29 +26,38 @@ const SortMenu = ({ children }: Props) => {
             const active = order === k;
 
             let Icon: React.FC<{ className: string }>;
+            let dataCy: string;
             switch (k as OrderType) {
               case 'newest':
                 Icon = RiSortDesc;
+                dataCy = 'latest';
                 break;
               case 'oldest':
                 Icon = RiSortAsc;
+                dataCy = 'oldest';
                 break;
               case 'az':
+                dataCy = 'az';
                 Icon = FaSortAlphaDown;
                 break;
               case 'za':
+                dataCy = 'za';
                 Icon = FaSortAlphaUp;
                 break;
               default:
+                dataCy = 'unfinished';
                 Icon = RiArrowUpDownLine;
                 break;
             }
 
             return (
               <DropdownMenu.Item
-                onClick={() => setOrder(k as OrderType)}
+                data-cy={dataCy}
+                onSelect={() => setOrder(k as OrderType)}
                 key={index}
-                className={`flex items-center gap-3 ${active && 'bg-blue-50'}`}>
+                className={`flex items-center gap-3 cursor-pointer ${
+                  active && 'bg-blue-50'
+                }`}>
                 <Icon className='text-primary text-xl' /> {v}{' '}
                 {active && <RiCheckLine className='ml-auto' />}
               </DropdownMenu.Item>

@@ -9,7 +9,7 @@ const Navbar = () => {
       data-cy='header-background'
       className='bg-primary text-white font-bold p-5 shadow-md flex items-center gap-4'>
       {Boolean(match) && (
-        <Link to='/'>
+        <Link data-cy='todo-back-button' to='/'>
           <RiArrowLeftLine className='text-2xl' />
         </Link>
       )}
