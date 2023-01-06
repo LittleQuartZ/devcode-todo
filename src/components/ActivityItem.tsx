@@ -39,7 +39,7 @@ const ActivityItem = ({ group }: { group: Activity }) => {
       <Link
         to={`/detail/${group.id}`}
         data-cy='activity-item-title'
-        className='flex-1 break-words font-bold text-sm'>
+        className='flex-1 break-words font-bold'>
         {group.title}
       </Link>
       <div className='text-black-3 flex items-center justify-between'>
@@ -54,7 +54,7 @@ const ActivityItem = ({ group }: { group: Activity }) => {
           title={`Apakah anda yakin menghapus activity "${group.title}"?`}
           action={onDeleteClick}>
           <button data-cy='activity-item-delete-button'>
-            <RiDeleteBinLine className='hover:text-danger' />
+            <RiDeleteBinLine className='hover:text-danger text-lg' />
           </button>
         </AlertDialog>
       </div>

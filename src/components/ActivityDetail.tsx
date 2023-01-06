@@ -42,7 +42,7 @@ const ActivityDetail = () => {
 
   return (
     <main className='p-8 flex flex-col gap-4 container mx-auto'>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center text-lg justify-between'>
         {editing ? (
           <input
             data-cy='todo-title-input'

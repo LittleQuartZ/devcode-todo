@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <nav
       data-cy='header-background'
-      className='bg-primary text-white font-bold p-5 shadow-md'>
+      className='bg-primary text-white font-bold px-8 py-5 shadow-md'>
       <div className='container mx-auto flex items-center gap-4'>
         {Boolean(match) && (
           <Link data-cy='todo-back-button' to='/'>

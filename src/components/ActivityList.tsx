@@ -30,14 +30,14 @@ const ActivityList = () => {
   return (
     <main className='pt-8 px-8 container mx-auto'>
       <section className='flex items-center justify-between'>
-        <h1 data-cy='activity-title' className='font-bold'>
+        <h1 data-cy='activity-title' className='font-bold text-lg'>
           Activity
         </h1>
         <button
           onClick={onAddClick}
           disabled={addActivityGroup.isLoading}
           data-cy='activity-add-button'
-          className='flex items-center font-bold gap-2 disabled:bg-black-3 bg-primary rounded-full px-4 py-3 text-xs text-white'>
+          className='flex items-center font-bold text-lg gap-2 disabled:bg-black-3 bg-primary rounded-full px-5 py-2 text-xs text-white'>
           {addActivityGroup.isLoading ? (
             <RiLoader3Fill className='animate-spin w-4 h-4' />
           ) : (

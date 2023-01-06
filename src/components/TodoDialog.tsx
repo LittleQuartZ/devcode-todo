@@ -52,7 +52,7 @@ const TodoDialog = ({
         <Dialog.Overlay className='bg-gray-300 opacity-50 w-screen h-screen fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
         <Dialog.Content
           data-cy='modal-add'
-          className='p-5 rounded-lg flex flex-col gap-4 bg-white shadow-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+          className='p-5 rounded-lg flex flex-col gap-6 bg-white shadow-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
           <Dialog.Title
             data-cy='modal-add-title'
             className='flex items-center text-lg font-bold'>
@@ -108,7 +108,7 @@ const TodoDialog = ({
               data-cy='modal-add-save-button'
               type='submit'
               disabled={!name || isLoading}
-              className='ml-auto bg-primary text-white rounded-full px-6 py-2 font-bold disabled:bg-blue-200'>
+              className='ml-auto bg-primary text-white rounded-full px-6 py-2 font-bold mt-4 disabled:bg-blue-200'>
               {isLoading ? (
                 <RiLoader3Line className='text-2xl text-primary animate-spin' />
               ) : (
