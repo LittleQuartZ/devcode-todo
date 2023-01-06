@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { RiCloseLine, RiLoader3Line } from 'react-icons/ri';
 import { useMatch } from 'react-router-dom';
-import { createTodo, Todo, TodoPriority, updateTodo } from '../api';
+import { createTodo, priorities, Todo, TodoPriority, updateTodo } from '../api';
 
 const TodoDialog = ({
   title,
@@ -94,31 +94,14 @@ const TodoDialog = ({
                   console.log(e.target.value);
                 }}
                 value={priority}>
-                <option
-                  value='very-high'
-                  data-cy='modal-add-priority-very-high modal-add-priority-item'>
-                  Very High
-                </option>
-                <option
-                  value='high'
-                  data-cy='modal-add-priority-high modal-add-priority-item'>
-                  High
-                </option>
-                <option
-                  value='normal'
-                  data-cy='modal-add-priority-normal modal-add-priority-item'>
-                  Normal
-                </option>
-                <option
-                  value='low'
-                  data-cy='modal-add-priority-low modal-add-priority-item'>
-                  Low
-                </option>
-                <option
-                  value='very-low'
-                  data-cy='modal-add-priority-very-low modal-add-priority-item'>
-                  Very Low
-                </option>
+                {Object.entries(priorities).map(([k, v], index) => (
+                  <option
+                    key={index}
+                    value={k}
+                    data-cy={`modal-add-priority-${k} modal-add-priority-item`}>
+                    {v}
+                  </option>
+                ))}
               </select>
             </label>
             <button

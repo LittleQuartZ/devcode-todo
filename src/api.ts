@@ -16,15 +16,15 @@ type Response<T> = {
   data: T;
 };
 
-export const TodoPriorities = [
-  'very-high',
-  'high',
-  'normal',
-  'low',
-  'very-low',
-] as const;
+export const priorities = {
+  'very-high': 'Very High',
+  high: 'High',
+  normal: 'Normal',
+  low: 'Low',
+  'very-low': 'Very Low',
+} as const;
 
-export type TodoPriority = typeof TodoPriorities[number];
+export type TodoPriority = keyof typeof priorities;
 
 export type Todo = {
   activity_group_id: Activity['id'];
