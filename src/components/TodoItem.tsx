@@ -1,12 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 import { RiDeleteBinLine, RiEditLine } from 'react-icons/ri';
 import { deleteTodo, Todo, TodoUpdate, updateTodo } from '../api';
 import TodoDialog from './AddDialog';
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
-  const [editing, setEditing] = useState(false);
-
   let priorityClass;
   switch (todo.priority) {
     case 'very-high':
@@ -71,7 +68,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         title='Update List Item'
         mutationFn={updateTodo}
         todoId={todo.id}>
-        <button onClick={() => setEditing(!editing)}>
+        <button>
           <RiEditLine />
         </button>
       </TodoDialog>
