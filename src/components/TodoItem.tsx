@@ -26,7 +26,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     <div className='flex items-center gap-4 rounded-md shadow-md border-2 border-transparent hover:border-primary px-4 py-2'>
       <input type='checkbox' checked={todo.is_active ? false : true} />
       <span
-        aria-label={`priority very-low`}
+        aria-label={`priority ${todo.priority}`}
         className={`w-3 h-3 inline-block rounded-full ${priorityClass}`}
       />
       <p className={`${!todo.is_active && 'line-through'}`}>{todo.title}</p>

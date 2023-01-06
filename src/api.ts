@@ -24,11 +24,13 @@ export const TodoPriorities = [
   'very-low',
 ] as const;
 
+export type TodoPriority = typeof TodoPriorities[number];
+
 export type Todo = {
   activity_group_id: Activity['id'];
   id: number;
   is_active: 1 | 0;
-  priority: typeof TodoPriorities[number];
+  priority: TodoPriority;
   title: string;
 };
 
