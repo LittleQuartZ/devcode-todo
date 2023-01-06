@@ -49,12 +49,16 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const onDeleteClick = async () => {
     await mutateAsync(todo.id);
     toast((t) => (
-      <span
-        onClick={() => toast.dismiss(t.id)}
-        className='flex items-center text-base gap-4'>
-        <RiInformationLine className='text-2xl text-success' /> Activity
-        berhasil dihilangkan
-      </span>
+      <div
+        className='flex items-center text-base gap-4'
+        data-cy='modal-information'
+        onClick={() => toast.dismiss(t.id)}>
+        <RiInformationLine
+          data-cy='modal-information-icon'
+          className='text-2xl text-success'
+        />
+        <span data-cy='modal-information-title'>Todo berhasil dihilangkan</span>
+      </div>
     ));
   };
 
