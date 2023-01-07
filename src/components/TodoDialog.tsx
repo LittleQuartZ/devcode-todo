@@ -38,6 +38,16 @@ const TodoDialog = ({
     }
   }, [defaultValue]);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!name) {
+        setOpen(false);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [open]);
+
   const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation({
     mutationFn: () =>
