@@ -50,7 +50,9 @@ const TodoItem = ({ todo }: Props) => {
       },
     });
 
-  const onDeleteClick = async () => {
+  const onDeleteClick = async (
+    setter: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     await deleteMutateAsync(todo.id);
     toast((t) => (
       <div
@@ -64,6 +66,7 @@ const TodoItem = ({ todo }: Props) => {
         <span data-cy='modal-information-title'>Todo berhasil dihilangkan</span>
       </div>
     ));
+    setter(false);
   };
 
   const onActiveCheck = (e: React.ChangeEvent<HTMLInputElement>) => {

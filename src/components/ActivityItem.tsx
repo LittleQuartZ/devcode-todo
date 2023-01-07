@@ -34,9 +34,12 @@ const ActivityItem = ({ group }: Props) => {
     </div>
   );
 
-  const onDeleteClick = async () => {
+  const onDeleteClick = async (
+    setter: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     await mutateAsync(group.id);
     toast(toastElement);
+    setter(false);
   };
 
   const prettyDate = (date: Date) => {
