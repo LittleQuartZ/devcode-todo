@@ -9,6 +9,7 @@ import { FaSortAlphaUp, FaSortAlphaDown } from 'react-icons/fa';
 import { useAtom } from 'jotai';
 
 import { orderAtom, orders, type OrderType } from '../states/todoOrder';
+import { useEffect, useState } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -16,14 +17,21 @@ type Props = {
 
 const SortMenu = ({ children }: Props) => {
   const [order, setOrder] = useAtom(orderAtom);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setOpen(false), 1000);
+
+    return () => clearTimeout(timeout);
+  }, [open]);
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>{children}</DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          data-cy='sort-parent'
+          data-cy='sort-selection'
           className='bg-white shadow-lg border-2 mt-4 [&>*]:py-2 [&>*]:px-4 rounded-lg border-gray-100'>
           {Object.entries(orders).map(([k, v], index) => {
             const active = order === k;
