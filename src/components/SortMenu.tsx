@@ -22,38 +22,36 @@ const SortMenu = ({ children }: Props) => {
       <DropdownMenu.Trigger asChild>{children}</DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className='bg-white shadow-lg border-2 mt-4 [&>*]:py-2 [&>*]:px-4 rounded-lg border-gray-100'>
+        <DropdownMenu.Content
+          data-cy='sort-parent'
+          className='bg-white shadow-lg border-2 mt-4 [&>*]:py-2 [&>*]:px-4 rounded-lg border-gray-100'>
           {Object.entries(orders).map(([k, v], index) => {
             const active = order === k;
 
             let Icon: React.FC<{ className: string }>;
-            let dataCy: string;
+            let dataCy: string = k;
             switch (k as OrderType) {
               case 'latest':
                 Icon = RiSortDesc;
-                dataCy = 'latest';
                 break;
               case 'oldest':
                 Icon = RiSortAsc;
-                dataCy = 'oldest';
                 break;
               case 'az':
-                dataCy = 'az';
                 Icon = FaSortAlphaDown;
                 break;
               case 'za':
-                dataCy = 'za';
                 Icon = FaSortAlphaUp;
                 break;
               default:
-                dataCy = 'unfinished';
+                dataCy = 'not-finished';
                 Icon = RiArrowUpDownLine;
                 break;
             }
 
             return (
               <DropdownMenu.Item
-                data-cy={dataCy}
+                data-cy={`sort-selection-${dataCy}`}
                 onSelect={() => setOrder(k as OrderType)}
                 key={index}
                 className={`flex items-center gap-3 cursor-pointer ${
