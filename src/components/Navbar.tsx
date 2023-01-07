@@ -1,4 +1,4 @@
-import { RiArrowLeftLine } from 'react-icons/ri';
+import { RiArrowLeftLine, RiGithubFill } from 'react-icons/ri';
 import { Link, useMatch } from 'react-router-dom';
 
 const Navbar = () => {
@@ -17,6 +17,13 @@ const Navbar = () => {
         <h1 data-cy='header-title' className='text-lg'>
           TO DO LIST APP
         </h1>
+        <a
+          className='ml-auto rounded-full bg-black-1 text-2xl font-normal p-0.5 gap-2'
+          href='https://github.com/littlequartz/devcode-todo'
+          rel='noreferrer'
+          target='_blank'>
+          <RiGithubFill />
+        </a>
       </div>
     </nav>
   );
