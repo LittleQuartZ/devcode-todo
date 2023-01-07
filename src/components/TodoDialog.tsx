@@ -46,7 +46,7 @@ const TodoDialog = ({
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [open]);
+  }, [open, name]);
 
   const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation({
