@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { RiAddLine, RiArrowUpDownLine, RiEditLine } from 'react-icons/ri';
+import {
+  RiAddLine,
+  RiArrowUpDownLine,
+  RiEditLine,
+  RiLoader3Fill,
+} from 'react-icons/ri';
 import { useMatch } from 'react-router-dom';
 import { useAtom } from 'jotai';
 
@@ -127,6 +132,10 @@ const ActivityDetail = () => {
         })().map((todo, index) => (
           <TodoItem data-cy={`todo-item-${index}`} key={todo.id} todo={todo} />
         ))
+      ) : activityDetail.isLoading ? (
+        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+          <RiLoader3Fill className='animate-spin text-4xl' />
+        </div>
       ) : (
         <EmptyPlaceholder
           dataCy='todo-empty-state'
