@@ -9,7 +9,7 @@ import { FaSortAlphaUp, FaSortAlphaDown } from 'react-icons/fa';
 import { useAtom } from 'jotai';
 
 import { orderAtom, orders, type OrderType } from '../states/todoOrder';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -18,12 +18,6 @@ type Props = {
 const SortMenu = ({ children }: Props) => {
   const [order, setOrder] = useAtom(orderAtom);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setOpen(false), 1000);
-
-    return () => clearTimeout(timeout);
-  }, [open]);
 
   return (
     <DropdownMenu.Root open={open} onOpenChange={setOpen}>
@@ -62,7 +56,7 @@ const SortMenu = ({ children }: Props) => {
                 data-cy={`sort-selection-${dataCy}`}
                 onSelect={() => setOrder(k as OrderType)}
                 key={index}
-                className={`flex items-center gap-3 cursor-pointer ${
+                className={`flex items-center hover:bg-blue-50 gap-3 cursor-pointer ${
                   active && 'bg-blue-50'
                 }`}>
                 <Icon className='text-primary text-xl' /> {v}{' '}

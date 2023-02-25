@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RiAlertLine } from 'react-icons/ri';
 
 import type { Activity, Todo } from '../api';
@@ -12,14 +12,6 @@ type Props = {
 
 const AlertDialog = ({ children, title, action }: Props) => {
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setOpen(false);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [open]);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
